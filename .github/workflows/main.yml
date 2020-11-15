@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: gableroux/unity3d:2019.4.14f1
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v1
+
+      - name: Activate Unity
+        run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .github/Unity_v2019.x.ulf || exit 0
+
+      - name: Build WebGl
+        run: /opt/Unity/Editor/Unity -quit -batchmode -logFile ./build.log -projectPath . -executeMethod WebGLBuilder.build
+
+      - name: Archive WebGl Build
+        uses: actions/upload-artifact@v1
+        with:
+          name: CIWebGl
+          path: ./builds/WebGL
