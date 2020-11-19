@@ -6,11 +6,9 @@ public class CameraMovement : MonoBehaviour
     public float dragSpeed = 2;
 
     private Vector3 lastDragPosition;
-
-    private void LateUpdate()
+    
+    void Update()
     {
-        Camera.main.transform.LookAt(m_Ground.transform.position);
-
         if (Input.GetMouseButtonDown(0))
             lastDragPosition = Input.mousePosition;
         if (Input.GetMouseButton(0))
@@ -19,5 +17,10 @@ public class CameraMovement : MonoBehaviour
             transform.Translate(delta * Time.deltaTime * dragSpeed);
             lastDragPosition = Input.mousePosition;
         }
+    }
+
+    void LateUpdate()
+    {
+        Camera.main.transform.LookAt(m_Ground.transform.position);
     }
 }
