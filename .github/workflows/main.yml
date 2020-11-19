@@ -14,11 +14,11 @@ jobs:
       - name: Activate Unity
         run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .github/Unity_v2019.x.ulf || exit 0
 
-      - name: Build WebGl
-        run: /opt/Unity/Editor/Unity -quit -batchmode -logFile ./build.log -projectPath . -executeMethod WebGLBuilder.build
+      - name: Build Windows Player
+        run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -buildWindows64Player ./bin-win64/CISample.exe
 
-      - name: Archive WebGl Build
-        uses: actions/upload-artifact@v1
-        with:
-          name: CIWebGl
-          path: ./builds/WebGL
+      - name: Archive Windows Build
+          uses: actions/upload-artifact@v1
+          with:
+            name: CISampleWin64Binary
+            path: ./bin-win64
