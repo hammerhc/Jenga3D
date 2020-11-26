@@ -1,24 +1,68 @@
-name: CI
+name: Build
+
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '*'
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
 jobs:
   build:
+    name: Build my project
     runs-on: ubuntu-latest
-    container: gableroux/unity3d:2018.2.21f1
     steps:
-      - name: Checkout Project
-        uses: actions/checkout@v1
-
-      - name: Activate Unity
-        run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile .github/Unity_v2019.x.ulf || exit 0
-
-      - name: Build Windows Player
-        run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -buildWindows64Player ./bin-win64/CISample.exe
-
-      - name: Archive Windows Build
-        uses: actions/upload-artifact@v1
+    
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
         with:
-          name: CISampleWin64Binary
-          path: ./bin-win64
+          lfs: true
+    
+      # Cache
+      - uses: actions/cache@v1.1.0
+        with:
+          path: Library
+          key: Library
+
+      # Build
+      - name: Build project
+        uses: webbertakken/unity-builder@v0.10
+        with:
+          unityVersion: 2019.4.14f1
+          targetPlatform: StandaloneWindows64 
+
+      # Output 
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Build
+          path: build
+
+      - name: Zip build
+        run: |
+          pushd build/StandaloneWindows64
+          zip -r ../../StandaloneWindows64.zip .
+          popd
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./StandaloneWindows64.zip
+          asset_name: StandaloneWindows64.zip
+          asset_content_type: application/zip
