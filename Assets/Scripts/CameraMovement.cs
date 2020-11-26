@@ -44,8 +44,7 @@ public class CameraMovement : MonoBehaviour
 
     void scrollCamera()
     {
-        distance += Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime;
+        distance = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime;
         distance = Mathf.Clamp(distance, minDistance, maxDistance);
-        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, distance);
     }
 }

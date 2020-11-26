@@ -513,5 +513,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1720272035}
-  dragSpeed: 100
+  dragSpeed: 50
   zoomSpeed: 1000
