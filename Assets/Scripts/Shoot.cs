@@ -10,8 +10,14 @@ public class Shoot : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            GameObject bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
-            bulletInstance.GetComponent<Rigidbody>().AddForce(transform.up * bulletSpeed);
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 100))
+            {
+                if (hit.rigidbody != null)
+                {
+                    hit.rigidbody.AddForce(-hit.normal * bulletSpeed);
+                }
+            }
         }
     }
 }

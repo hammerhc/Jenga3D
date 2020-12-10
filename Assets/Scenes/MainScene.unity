@@ -643,7 +643,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 5362570255022590412, guid: 39451c1560bae054e8301cf5475825d2, type: 3}
+  camera: {fileID: 1877375234}
   bulletSpeed: 5000
+  impactForce: 50
 --- !u!1 &1877375231
 GameObject:
   m_ObjectHideFlags: 0
