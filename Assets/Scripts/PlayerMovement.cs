@@ -4,21 +4,29 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
 
-    public float speed = 12f;
-    public float gravity = -9.81f;
-    public float jumpHeight = 3f;
+    public float speed;
+    public float gravity;
+    public float jumpHeight;
+    public float thrust;
+    public float maxThrust;
 
     public Transform groundCheck;
-    public float groundDistance = 0.4f;
+    public float groundDistance;
     public LayerMask groundMask;
 
     Vector3 velocity;
     bool isGrounded;
+    bool isHovering;
 
     // Update is called once per frame
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (Input.GetMouseButtonDown(1) && isGrounded == false)
+        {
+            isHovering = !isHovering;
+        }
 
         if (isGrounded && velocity.y < 0)
         {
@@ -37,8 +45,24 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        velocity.y += gravity * Time.deltaTime;
-
         controller.Move(velocity * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            velocity.y += thrust * Time.deltaTime;
+            if (velocity.y > maxThrust)
+            {
+                velocity.y = maxThrust;
+            }
+        }
+        else
+        {
+            velocity.y += gravity * Time.deltaTime;
+        }
+
+        if (isHovering)
+        {
+            velocity.y = 0;
+        }
     }
 }
