@@ -450,6 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerRow: {fileID: 3650181688533911778, guid: 11c2213a68b6c984bb1dbfecb48b12be,
     type: 3}
+  block: {fileID: 5675727249470859032, guid: 2c5e871ac1797d249adef2df39864615, type: 3}
 --- !u!1 &1390373796
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject towerRow;
+    public GameObject block;
 
     private List<GameObject> tower = new List<GameObject>();
 
@@ -19,6 +19,15 @@ public class GameManager : MonoBehaviour
             deleteTower();
             buildTower();
         }
+
+        for (int i = tower.Count - 1; i >= 0; i--)
+        {
+            if (tower[i].transform.position.y < 0)
+            {
+                Destroy(tower[i]);
+                tower.RemoveAt(i);
+            }
+        }
     }
 
     void buildTower()
@@ -28,11 +37,15 @@ public class GameManager : MonoBehaviour
         {
             if (i % 2 == 1)
             {
-                tower.Add(Instantiate(towerRow, new Vector3(0, height, 0), Quaternion.identity));
+                tower.Add(Instantiate(block, new Vector3(-2.5f, height, 0), Quaternion.identity));
+                tower.Add(Instantiate(block, new Vector3(0, height, 0), Quaternion.identity));
+                tower.Add(Instantiate(block, new Vector3(2.5f, height, 0), Quaternion.identity));
             }
             else
             {
-                tower.Add(Instantiate(towerRow, new Vector3(0, height, 0), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
+                tower.Add(Instantiate(block, new Vector3(0, height, -2.5f), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
+                tower.Add(Instantiate(block, new Vector3(0, height, 0), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
+                tower.Add(Instantiate(block, new Vector3(0, height, 2.5f), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
             }
             height += 1.5f;
         }
@@ -40,9 +53,11 @@ public class GameManager : MonoBehaviour
 
     void deleteTower()
     {
-        foreach(GameObject towerRow in tower)
+        foreach(GameObject towerBlock in tower)
         {
-            Destroy(towerRow);
+            Destroy(towerBlock);
         }
+
+        tower.Clear();
     }
 }
