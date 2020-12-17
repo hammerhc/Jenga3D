@@ -7,7 +7,7 @@ public class UIController : MonoBehaviour
     VisualElement elementPause;
     VisualElement elementControls;
 
-    void OnEnable()
+    void Start()
     {
         var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
 
@@ -18,27 +18,32 @@ public class UIController : MonoBehaviour
         var buttonExit = elementPause.Q<Button>("ButtonExit");
         var buttonBack = elementControls.Q<Button>("ButtonBack");
 
-        buttonResume.RegisterCallback<ClickEvent>(ev => EnablePauseElement(false));
+        buttonResume.RegisterCallback<ClickEvent>(ev => TogglePauseElement());
         buttonControls.RegisterCallback<ClickEvent>(ev => SwitchToControls());
         buttonBack.RegisterCallback<ClickEvent>(ev => SwitchToPause());
         buttonExit.RegisterCallback<ClickEvent>(ev => ExitGame());
-
     }
+
+    bool pauseEnabled = false;
 
     void Update()
     {
         if (Input.GetButtonDown("Pause"))
         {
-            EnablePauseElement(true);
+            TogglePauseElement();
         }
     }
 
 
-    void EnablePauseElement(bool enabled)
+    void TogglePauseElement()
     {
-        elementPause.style.display = enabled ? DisplayStyle.Flex : DisplayStyle.None;
-        UnityEngine.Cursor.visible = enabled;
-        UnityEngine.Cursor.lockState = enabled ? CursorLockMode.None : CursorLockMode.Locked;
+        pauseEnabled = !pauseEnabled;
+
+        Time.timeScale = pauseEnabled ? 0 : 1;
+        elementPause.style.display = pauseEnabled ? DisplayStyle.Flex : DisplayStyle.None;
+        elementControls.style.display = DisplayStyle.None;
+        UnityEngine.Cursor.visible = pauseEnabled;
+        UnityEngine.Cursor.lockState = pauseEnabled ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     void SwitchToControls()
