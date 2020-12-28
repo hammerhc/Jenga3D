@@ -2,7 +2,6 @@
 
 public class Shoot : MonoBehaviour
 {
-    public GameObject bullet;
     public float bulletSpeed;
 
     // Update is called once per frame
