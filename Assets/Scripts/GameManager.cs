@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject block;
+    public Transform spawnPoint;
 
     private List<GameObject> tower = new List<GameObject>();
 
@@ -37,12 +38,16 @@ public class GameManager : MonoBehaviour
         {
             if (i % 2 == 1)
             {
-                tower.Add(Instantiate(block, new Vector3(-2.5f, height, 0), Quaternion.identity));
-                tower.Add(Instantiate(block, new Vector3(0, height, 0), Quaternion.identity));
-                tower.Add(Instantiate(block, new Vector3(2.5f, height, 0), Quaternion.identity));
+                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x - 2.5f, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
+                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
+                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x + 2.5f, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
             }
             else
             {
+                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z - 2.5f), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
+                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
+                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z + 2.5f), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
+
                 tower.Add(Instantiate(block, new Vector3(0, height, -2.5f), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
                 tower.Add(Instantiate(block, new Vector3(0, height, 0), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
                 tower.Add(Instantiate(block, new Vector3(0, height, 2.5f), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
