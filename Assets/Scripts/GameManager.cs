@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject block;
     public Transform spawnPoint;
+    public float blockCount;
 
     private List<GameObject> tower = new List<GameObject>();
 
@@ -33,26 +34,22 @@ public class GameManager : MonoBehaviour
 
     void buildTower()
     {
-        float height = 1f;
-        for (int i = 0; i < 18; i++)
+        float height = block.transform.localScale.y;
+        for (int i = 0; i < blockCount; i++)
         {
             if (i % 2 == 1)
             {
-                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x - 2.5f, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
+                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x - block.transform.localScale.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
                 tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
-                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x + 2.5f, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
+                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x + block.transform.localScale.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
             }
             else
             {
-                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z - 2.5f), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
+                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z - block.transform.localScale.x), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
                 tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
-                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z + 2.5f), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
-
-                tower.Add(Instantiate(block, new Vector3(0, height, -2.5f), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
-                tower.Add(Instantiate(block, new Vector3(0, height, 0), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
-                tower.Add(Instantiate(block, new Vector3(0, height, 2.5f), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
+                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z + block.transform.localScale.x), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
             }
-            height += 1.5f;
+            height += block.transform.localScale.y;
         }
     }
 
