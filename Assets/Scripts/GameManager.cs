@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject block;
     public Transform spawnPoint;
+    public Transform removePosition;
     public float blockCount;
 
     private List<GameObject> tower = new List<GameObject>();
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = tower.Count - 1; i >= 0; i--)
         {
-            if (tower[i].transform.position.y < 0)
+            if (tower[i].transform.position.y < removePosition.position.y)
             {
                 Destroy(tower[i]);
                 tower.RemoveAt(i);
