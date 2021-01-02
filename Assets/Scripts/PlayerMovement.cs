@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance;
     public LayerMask groundMask;
 
+    public Animator animator;
+
     Vector3 velocity;
     bool isGrounded;
     bool isHovering;
@@ -36,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
+        animator.SetFloat("horizontal", x);
+        animator.SetFloat("vertical", z);
+
         Vector3 move = transform.right * x + transform.forward * z;
 
         controller.Move(move * speed * Time.deltaTime);
@@ -43,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            animator.SetTrigger("Jump");
         }
 
         controller.Move(velocity * Time.deltaTime);
