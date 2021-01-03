@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             deleteTower();
+            Score = 0;
+            UIController.SetScore(Score);
             buildTower();
         }
 
