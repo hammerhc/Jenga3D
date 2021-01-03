@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public Transform removePosition;
     public float blockCount;
 
+    private static float Score = 0f;
     private List<GameObject> tower = new List<GameObject>();
 
     void Start()
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
         {
             if (tower[i].transform.position.y < removePosition.position.y)
             {
+                Score += 10;
+                UIController.SetScore(Score);
                 Destroy(tower[i]);
                 tower.RemoveAt(i);
             }

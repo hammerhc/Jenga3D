@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-
 public class UIController : MonoBehaviour
 {
     VisualElement elementPause;
     VisualElement elementControls;
+    static Label elementScore;
 
     void Start()
     {
@@ -13,6 +13,7 @@ public class UIController : MonoBehaviour
 
         elementPause = rootVisualElement.Q("ElementPause");
         elementControls = rootVisualElement.Q("ElementControls");
+        elementScore = rootVisualElement.Q("ElementScore").Q<Label>("Score");
         var buttonResume = elementPause.Q<Button>("ButtonResume");
         var buttonControls = elementPause.Q<Button>("ButtonControls");
         var buttonExit = elementPause.Q<Button>("ButtonExit");
@@ -61,5 +62,10 @@ public class UIController : MonoBehaviour
     void ExitGame()
     {
         Application.Quit();
+    }
+
+    public static void SetScore(float score)
+    {
+        elementScore.text = score.ToString();
     }
 }
