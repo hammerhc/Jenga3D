@@ -10,7 +10,7 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && Time.timeScale == 1)
         {
             SoundManagerScript.PlaySound("laserShot");
 

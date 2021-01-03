@@ -7,6 +7,7 @@ public class UIControllerGame : MonoBehaviour
     VisualElement elementPause;
     VisualElement elementControls;
     static Label elementScore;
+    bool pauseEnabled = false;
 
     void Start()
     {
@@ -26,7 +27,7 @@ public class UIControllerGame : MonoBehaviour
         buttonMenu.RegisterCallback<ClickEvent>(ev => MainMenu());
     }
 
-    bool pauseEnabled = false;
+    
 
     void Update()
     {
