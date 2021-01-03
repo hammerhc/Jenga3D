@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,10 +8,10 @@ public class GameManager : MonoBehaviour
     public Transform spawnPoint;
     public Transform removePosition;
     public float blockCount;
-
-    private static float Score = 0f;
-    private List<GameObject> tower = new List<GameObject>();
-
+    
+    private static List<Towerblock> tower = new List<Towerblock>();
+    private float Score = 0f;
+    
     void Start()
     {
         buildTower();
@@ -26,11 +27,11 @@ public class GameManager : MonoBehaviour
 
         for (int i = tower.Count - 1; i >= 0; i--)
         {
-            if (tower[i].transform.position.y < removePosition.position.y)
+            if (tower[i].Block.transform.position.y < removePosition.position.y)
             {
                 Score += 10;
                 UIController.SetScore(Score);
-                Destroy(tower[i]);
+                Destroy(tower[i].Block);
                 tower.RemoveAt(i);
             }
         }
@@ -41,17 +42,26 @@ public class GameManager : MonoBehaviour
         float height = block.transform.localScale.y;
         for (int i = 0; i < blockCount; i++)
         {
-            if (i % 2 == 1)
+            bool isLocked = false;
+            if (i == 0 || i > blockCount - 4)
             {
-                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x - block.transform.localScale.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
-                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
-                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x + block.transform.localScale.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity));
+                isLocked = true;
             }
             else
             {
-                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z - block.transform.localScale.x), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
-                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
-                tower.Add(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z + block.transform.localScale.x), Quaternion.Euler(new Vector3(0f, 90f, 0f))));
+                isLocked = false;
+            }
+            if (i % 2 == 1)
+            {
+                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x - block.transform.localScale.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity), isLocked));
+                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity), isLocked));
+                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x + block.transform.localScale.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity), isLocked));
+            }
+            else
+            {
+                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z - block.transform.localScale.x), Quaternion.Euler(new Vector3(0f, 90f, 0f))), isLocked));
+                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.Euler(new Vector3(0f, 90f, 0f))), isLocked));
+                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z + block.transform.localScale.x), Quaternion.Euler(new Vector3(0f, 90f, 0f))), isLocked));
             }
             height += block.transform.localScale.y;
         }
@@ -59,11 +69,23 @@ public class GameManager : MonoBehaviour
 
     void deleteTower()
     {
-        foreach(GameObject towerBlock in tower)
+        foreach (Towerblock towerBlock in tower)
         {
-            Destroy(towerBlock);
+            Destroy(towerBlock.Block);
         }
 
         tower.Clear();
+    }
+
+    public static bool CheckBlock(GameObject block)
+    {
+        foreach (Towerblock towerBlock in tower)
+        {
+            if (block == towerBlock.Block)
+            {
+                return !towerBlock.IsLocked;
+            }
+        }
+        return false;
     }
 }

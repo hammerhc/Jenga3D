@@ -20,9 +20,14 @@ public class Shoot : MonoBehaviour
             {
                 if (hit.rigidbody != null)
                 {
-                    hit.rigidbody.AddForce(-hit.normal * bulletSpeed);
+                    if (GameManager.CheckBlock(hit.transform.gameObject))
+                    {
+                        hit.rigidbody.AddForce(-hit.normal * bulletSpeed);
+                    }
                 }
             }
         }
     }
+
+
 }
