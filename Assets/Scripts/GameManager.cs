@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         {
             deleteTower();
             Score = 0;
-            UIController.SetScore(Score);
+            UIControllerGame.SetScore(Score);
             buildTower();
         }
 
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
             if (tower[i].Block.transform.position.y < removePosition.position.y)
             {
                 Score += 10;
-                UIController.SetScore(Score);
+                UIControllerGame.SetScore(Score);
                 Destroy(tower[i].Block);
                 tower.RemoveAt(i);
             }

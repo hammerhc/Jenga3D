@@ -1,0 +1,6 @@
+﻿<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+  <ui:Template name="ElementPause" src="../ElementPause.uxml" />
+  <ui:Template name="ElementControls" src="../ElementControls.uxml" />
+  <ui:Instance template="ElementPause" name="ElementPause" style="width: 100%; height: 100%; position: absolute; display: none;" />
+  <ui:Instance template="ElementControls" name="ElementControls" style="display: none;" />
+</ui:UXML>

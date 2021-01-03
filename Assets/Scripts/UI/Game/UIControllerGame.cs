@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UIController : MonoBehaviour
+public class UIControllerGame : MonoBehaviour
 {
     VisualElement elementPause;
     VisualElement elementControls;
