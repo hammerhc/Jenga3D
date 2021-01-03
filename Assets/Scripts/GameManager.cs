@@ -90,4 +90,9 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
+
+    public static void ClearList()
+    {
+        tower.Clear();
+    }
 }
