@@ -100,10 +100,10 @@ public class GameManager : MonoBehaviour
             {
                 if (towerBlock.IsLocked)
                 {
-                    if (towerBlock.Block.transform.position.z >= towerBlock.SpawnPosition.z + 2 ||
-                        towerBlock.Block.transform.position.z <= towerBlock.SpawnPosition.z - 2 ||
-                        towerBlock.Block.transform.position.x >= towerBlock.SpawnPosition.x + 2 ||
-                       towerBlock.Block.transform.position.x <= towerBlock.SpawnPosition.x - 2)
+                    if (towerBlock.Block.transform.position.z >= towerBlock.SpawnPosition.z + 5 ||
+                        towerBlock.Block.transform.position.z <= towerBlock.SpawnPosition.z - 5 ||
+                        towerBlock.Block.transform.position.x >= towerBlock.SpawnPosition.x + 5 ||
+                       towerBlock.Block.transform.position.x <= towerBlock.SpawnPosition.x - 5)
                     {
                         gameOver = true;
                     }

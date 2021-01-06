@@ -7,6 +7,7 @@ public class UIControllerGame : MonoBehaviour
     VisualElement elementPause;
     VisualElement elementControls;
     VisualElement elementGameOver;
+    VisualElement elementPlay;
     static Label elementScore;
     static Label elementScoreGameOver;
     bool pauseEnabled = false;
@@ -19,6 +20,7 @@ public class UIControllerGame : MonoBehaviour
         elementPause = rootVisualElement.Q("ElementPause");
         elementControls = rootVisualElement.Q("ElementControls");
         elementGameOver = rootVisualElement.Q("ElementGameOver");
+        elementPlay = rootVisualElement.Q("ElementPlay");
         elementScore = rootVisualElement.Q("ElementScore").Q<Label>("Score");
         elementScoreGameOver = elementGameOver.Q<Label>("Score");
         var buttonResume = elementPause.Q<Button>("ButtonResume");
@@ -55,6 +57,7 @@ public class UIControllerGame : MonoBehaviour
         pauseEnabled = !pauseEnabled;
 
         Time.timeScale = pauseEnabled ? 0 : 1;
+        elementPlay.style.display = pauseEnabled ? DisplayStyle.None : DisplayStyle.Flex;
         elementPause.style.display = pauseEnabled ? DisplayStyle.Flex : DisplayStyle.None;
         elementControls.style.display = DisplayStyle.None;
         elementGameOver.style.display = DisplayStyle.None;
@@ -79,6 +82,7 @@ public class UIControllerGame : MonoBehaviour
         gameOverActive = !gameOverActive;
         GameManager.gameOver = !gameOverActive;
         Time.timeScale = gameOverActive ? 0 : 1;
+        elementPlay.style.display = gameOverActive ? DisplayStyle.None : DisplayStyle.Flex;
         elementGameOver.style.display = gameOverActive ? DisplayStyle.Flex : DisplayStyle.None;
         elementControls.style.display = DisplayStyle.None;
         elementPause.style.display = DisplayStyle.None;
