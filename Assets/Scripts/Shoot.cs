@@ -14,7 +14,7 @@ public class Shoot : MonoBehaviour
     {
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && Time.timeScale == 1)
         {
-            SoundManagerScript.PlaySound("laserShot");
+            FindObjectOfType<AudioManager>().Play("laserShot");
             laserShot.Play();
 
             nextTimeToFire = Time.time + 1f / fireRate;
