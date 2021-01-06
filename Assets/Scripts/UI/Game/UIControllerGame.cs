@@ -92,20 +92,21 @@ public class UIControllerGame : MonoBehaviour
 
     void Retry()
     {
-        GameManager.ClearList();
-        Time.timeScale = 1;
-        gameOverActive = false;
-        GameManager.gameOver = false;
-        SceneManager.LoadScene(1);
+        LoadScene(1);
     }
 
     void MainMenu()
+    {
+        LoadScene(0);
+    }
+
+    void LoadScene(int scene)
     {
         GameManager.ClearList();
         Time.timeScale = 1;
         gameOverActive = false;
         GameManager.gameOver = false;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(scene);
     }
 
     public static void SetScore(float score)
