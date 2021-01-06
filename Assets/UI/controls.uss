@@ -11,7 +11,7 @@
     border-top-color: rgb(79, 79, 79);
     border-bottom-color: rgb(79, 79, 79);
     color: rgb(0, 0, 0);
-    font-size: 20px;
+    font-size: 12px;
     -unity-text-align: middle-center;
     padding-left: 0;
     padding-right: 0;
@@ -27,7 +27,7 @@
     padding-bottom: 0;
     margin-left: 20px;
     font-size: 20px;
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
 }
 
 .row {
@@ -35,4 +35,5 @@
     margin-bottom: 10px;
     padding-bottom: 0;
     align-items: center;
+    width: 100%;
 }

@@ -1,43 +1,47 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="controls.uss" />
-    <ui:VisualElement name="Header" style="flex-direction: row; margin-bottom: 10px;">
-        <ui:Button text="&lt;" display-tooltip-when-elided="true" name="ButtonBack" style="width: 40px; height: 40px; margin-left: 10px; margin-right: 10px; margin-top: auto; margin-bottom: auto;" />
-        <ui:Label text="Controls" display-tooltip-when-elided="true" name="LabelControls" style="font-size: 40px; margin-bottom: 10px; color: rgba(255, 255, 255, 255);" />
-    </ui:VisualElement>
-    <ui:VisualElement name="Body" style="width: 300px; height: auto; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;">
-        <ui:VisualElement name="Row" class="row">
-            <ui:Label text="W" display-tooltip-when-elided="true" name="LabelKey_W" class="label-key" style="width: 50px; height: 50px;" />
-            <ui:Label text="Walk forward" display-tooltip-when-elided="true" name="LabelDes_W" class="label-des" style="color: rgba(255, 255, 255, 255);" />
+    <ui:VisualElement name="ElementGameOver" style="width: 75%; height: 100%; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; align-items: center; justify-content: center;">
+        <ui:Label text="Controls" display-tooltip-when-elided="true" name="LabelControls" style="font-size: 40px; margin-bottom: 10px; color: rgb(255, 255, 255);" />
+        <ui:VisualElement name="Body" style="width: 300px; height: auto; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;">
+            <ui:VisualElement name="Row" class="row">
+                <ui:Label text="W" display-tooltip-when-elided="true" name="LabelKey_W" class="label-key" />
+                <ui:Label text="Walk forward" display-tooltip-when-elided="true" name="LabelDes_W" class="label-des" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Row" class="row">
+                <ui:Label text="A" display-tooltip-when-elided="true" name="LabelKey_A" class="label-key" />
+                <ui:Label text="Walk left" display-tooltip-when-elided="true" name="LabelDes_A" class="label-des" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Row" class="row">
+                <ui:Label text="S&#10;" display-tooltip-when-elided="true" name="LabelKey_S" class="label-key" />
+                <ui:Label text="Walk backward" display-tooltip-when-elided="true" name="LabelDes_S" class="label-des" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Row" class="row">
+                <ui:Label text="D" display-tooltip-when-elided="true" name="LabelKey_D" class="label-key" />
+                <ui:Label text="Walk right" display-tooltip-when-elided="true" name="LabelDes_D" class="label-des" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Row" class="row">
+                <ui:Label text="R" display-tooltip-when-elided="true" name="LabelKey_R" class="label-key" />
+                <ui:Label text="Rebuild Tower" display-tooltip-when-elided="true" name="LabelDes_R" class="label-des" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Row" class="row">
+                <ui:Label text="space" display-tooltip-when-elided="true" name="LabelKey_Space" class="label-key" />
+                <ui:Label text="Jump" display-tooltip-when-elided="true" name="LabelDes_Space" class="label-des" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Row" class="row">
+                <ui:Label text="space" display-tooltip-when-elided="true" name="LabelKey_Space" class="label-key" />
+                <ui:Label text="+" display-tooltip-when-elided="true" name="Label_Plus" class="label-des" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" />
+                <ui:Label text="shift" display-tooltip-when-elided="true" name="LabelKey_Shift" class="label-key" />
+                <ui:Label text="Jetpack" display-tooltip-when-elided="true" name="LabelDes_S" class="label-des" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Row" class="row">
+                <ui:Label text="Mouse &#10;Left" display-tooltip-when-elided="true" name="LabelKey_MouseLeft" class="label-key" style="border-top-left-radius: 30px; border-bottom-left-radius: 0; border-top-right-radius: 10px; border-bottom-right-radius: 0;" />
+                <ui:Label text="Shoot" display-tooltip-when-elided="true" name="LabelDes_MouseLeft" class="label-des" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Row" class="row">
+                <ui:Label text="Mouse&#10;Right" display-tooltip-when-elided="true" name="LabelKey_MouseRight" class="label-key" style="border-top-left-radius: 10px; border-bottom-left-radius: 0; border-top-right-radius: 30px; border-bottom-right-radius: 0;" />
+                <ui:Label text="Hover mode switch" display-tooltip-when-elided="true" name="LabelDes_MouseRight" class="label-des" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="Row" class="row">
-            <ui:Label text="A" display-tooltip-when-elided="true" name="LabelKey_A" class="label-key" style="color: rgba(0, 0, 0, 255);" />
-            <ui:Label text="Walk left" display-tooltip-when-elided="true" name="LabelDes_A" class="label-des" />
-        </ui:VisualElement>
-        <ui:VisualElement name="Row" class="row">
-            <ui:Label text="S&#10;" display-tooltip-when-elided="true" name="LabelKey_S" class="label-key" />
-            <ui:Label text="Walk backward" display-tooltip-when-elided="true" name="LabelDes_S" class="label-des" />
-        </ui:VisualElement>
-        <ui:VisualElement name="Row" class="row">
-            <ui:Label text="D" display-tooltip-when-elided="true" name="LabelKey_D" class="label-key" />
-            <ui:Label text="Walk right" display-tooltip-when-elided="true" name="LabelDes_D" class="label-des" />
-        </ui:VisualElement>
-        <ui:VisualElement name="Row" class="row">
-            <ui:Label text="space" display-tooltip-when-elided="true" name="LabelKey_Space" class="label-key" style="font-size: 13px;" />
-            <ui:Label text="Jump" display-tooltip-when-elided="true" name="LabelDes_Space" class="label-des" />
-        </ui:VisualElement>
-        <ui:VisualElement name="Row" class="row">
-            <ui:Label text="space" display-tooltip-when-elided="true" name="LabelKey_Space" class="label-key" style="font-size: 13px;" />
-            <ui:Label text="+" display-tooltip-when-elided="true" name="Label_Plus" style="-unity-text-align: middle-left; font-size: 20px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; color: rgba(255, 255, 255, 255);" />
-            <ui:Label text="shift" display-tooltip-when-elided="true" name="LabelKey_Shift" class="label-key" style="font-size: 13px;" />
-            <ui:Label text="Jetpack" display-tooltip-when-elided="true" name="LabelDes_S" class="label-des" />
-        </ui:VisualElement>
-        <ui:VisualElement name="Row" class="row">
-            <ui:Label text="Mouse &#10;Left" display-tooltip-when-elided="true" name="LabelKey_MouseLeft" class="label-key" style="font-size: 13px; border-top-left-radius: 30px; border-bottom-left-radius: 0; border-top-right-radius: 10px; border-bottom-right-radius: 0; height: 60px; width: 60px; -unity-text-align: middle-center;" />
-            <ui:Label text="Shoot" display-tooltip-when-elided="true" name="LabelDes_MouseLeft" class="label-des" />
-        </ui:VisualElement>
-        <ui:VisualElement name="Row" class="row">
-            <ui:Label text="Mouse &#10;Right" display-tooltip-when-elided="true" name="LabelKey_MouseRight" class="label-key" style="font-size: 13px; border-top-left-radius: 10px; border-bottom-left-radius: 0; border-top-right-radius: 30px; border-bottom-right-radius: 0; height: 60px; width: 60px; -unity-text-align: middle-center;" />
-            <ui:Label text="Hover mode switch" display-tooltip-when-elided="true" name="LabelDes_MouseRight" class="label-des" />
-        </ui:VisualElement>
+        <ui:Button text="Back" display-tooltip-when-elided="true" name="ButtonBack" label="Music Volume" max-value="100" low-limit="-10" high-limit="40" style="opacity: 1; display: flex; -unity-text-align: middle-center; white-space: nowrap; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; height: 50px; color: rgb(0, 0, 0); background-color: rgb(164, 164, 164); font-size: 20px; align-items: center; justify-content: center; width: 100%;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -2,9 +2,11 @@
     <ui:Template name="ElementPlay" src="../ElementPlay.uxml" />
     <ui:Template name="ElementPause" src="../ElementPause.uxml" />
     <ui:Template name="ElementGameOver" src="../ElementGameOver.uxml" />
+    <ui:Template name="ElementOptions" src="../ElementOptions.uxml" />
     <ui:Template name="ElementControls" src="../ElementControls.uxml" />
     <ui:Instance template="ElementPlay" name="ElementPlay" style="width: 100%; height: 100%; position: absolute;" />
-    <ui:Instance template="ElementPause" name="ElementPause" style="width: 100%; height: 100%; position: absolute; display: none;" />
-    <ui:Instance template="ElementGameOver" name="ElementGameOver" style="width: 100%; height: 100%; position: absolute; display: none;" />
+    <ui:Instance template="ElementPause" name="ElementPause" style="display: none;" />
+    <ui:Instance template="ElementGameOver" name="ElementGameOver" style="display: none;" />
+    <ui:Instance template="ElementOptions" name="ElementOptions" style="display: none;" />
     <ui:Instance template="ElementControls" name="ElementControls" style="display: none;" />
 </ui:UXML>

@@ -1,51 +1,18 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
 public class Towerblock
 {
-    private GameObject block;
-    private bool isLocked;
-    private Vector3 spawnPosition;
+    public GameObject block;
 
-    public GameObject Block
-    {
-        get
-        {
-            return block;
-        }
-        set
-        {
-            block = value;
-        }
-    }
+    public bool isLocked;
 
-    public bool IsLocked
-    {
-        get
-        {
-            return isLocked;
-        }
-        set
-        {
-            isLocked = value;
-        }
-    }
-
-    public Vector3 SpawnPosition
-    {
-        get
-        {
-            return spawnPosition;
-        }
-        set
-        {
-            spawnPosition = value;
-        }
-    }
+    public Vector3 spawnPosition;
 
     public Towerblock(GameObject towerBlock, bool locked, Vector3 pos)
     {
-        Block = towerBlock;
-        IsLocked = locked;
-        SpawnPosition = pos;
+        block = towerBlock;
+        isLocked = locked;
+        spawnPosition = pos;
     }
 }

@@ -26,7 +26,7 @@ public class Shoot : MonoBehaviour
                 laserBullet.Play();
                 if (hit.rigidbody != null)
                 {
-                    if (GameManager.CheckBlock(hit.transform.gameObject))
+                    if (FindObjectOfType<GameManager>().CheckBlock(hit.transform.gameObject))
                     {
                         hit.rigidbody.AddForce(-hit.normal * bulletSpeed);
                     }

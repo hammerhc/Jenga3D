@@ -4,12 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class UIControllerGame : MonoBehaviour
 {
+    VisualElement elementPlay;
     VisualElement elementPause;
+    VisualElement elementOptions;
     VisualElement elementControls;
     VisualElement elementGameOver;
-    VisualElement elementPlay;
-    static Label elementScore;
-    static Label elementScoreGameOver;
+    
+    Label score;
+    Label scoreGameOver;
+
     bool pauseEnabled = false;
     bool gameOverActive = false;
 
@@ -17,75 +20,115 @@ public class UIControllerGame : MonoBehaviour
     {
         var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
 
+        elementPlay = rootVisualElement.Q("ElementPlay");
         elementPause = rootVisualElement.Q("ElementPause");
+        elementOptions = rootVisualElement.Q("ElementOptions");
         elementControls = rootVisualElement.Q("ElementControls");
         elementGameOver = rootVisualElement.Q("ElementGameOver");
-        elementPlay = rootVisualElement.Q("ElementPlay");
-        elementScore = rootVisualElement.Q("ElementScore").Q<Label>("Score");
-        elementScoreGameOver = elementGameOver.Q<Label>("Score");
-        var buttonResume = elementPause.Q<Button>("ButtonResume");
-        var buttonControls = elementPause.Q<Button>("ButtonControls");
-        var buttonMenu = elementPause.Q<Button>("ButtonMenu");
-        var buttonBack = elementControls.Q<Button>("ButtonBack");
+
+        score = elementPlay.Q<Label>("LabelScore");
+
+        var buttonBackPau = elementPause.Q<Button>("ButtonBack");
+        var buttonOptions = elementPause.Q<Button>("ButtonOptions");
+        var buttonMenu = elementPause.Q<Button>("ButtonMainMenu");
+
+        var buttonBackOpt = elementOptions.Q<Button>("ButtonBack");
+        var buttonControls = elementOptions.Q<Button>("ButtonControls");
+        var sliderMusic = elementOptions.Q<Slider>("SliderMusic");
+        var sliderSound = elementOptions.Q<Slider>("SliderSound");
+
+        var buttonBackCont = elementControls.Q<Button>("ButtonBack");
+
         var buttonRetry = elementGameOver.Q<Button>("ButtonRetry");
-        var buttonMenuGameOver = elementGameOver.Q<Button>("ButtonMenu");
-        
-        buttonResume.RegisterCallback<ClickEvent>(ev => TogglePauseElement());
-        buttonControls.RegisterCallback<ClickEvent>(ev => SwitchToControls());
-        buttonBack.RegisterCallback<ClickEvent>(ev => SwitchToPause());
-        buttonMenu.RegisterCallback<ClickEvent>(ev => MainMenu());
+        var buttonMainMenu = elementGameOver.Q<Button>("ButtonMainMenu");
+        scoreGameOver = elementGameOver.Q<Label>("LabelScore");
+
+        buttonBackPau.RegisterCallback<ClickEvent>(ev => Pause());
+        buttonOptions.RegisterCallback<ClickEvent>(ev => Options());
+        buttonMenu.RegisterCallback<ClickEvent>(ev => Menu());
+
+        buttonBackOpt.RegisterCallback<ClickEvent>(ev => BackOptions());
+        buttonControls.RegisterCallback<ClickEvent>(ev => Controls());
+        sliderMusic.RegisterValueChangedCallback(ev => MusicChange(ev));
+        sliderSound.RegisterValueChangedCallback(ev => SoundChange(ev));
+
+        buttonBackCont.RegisterCallback<ClickEvent>(ev => BackControls());
+
         buttonRetry.RegisterCallback<ClickEvent>(ev => Retry());
-        buttonMenuGameOver.RegisterCallback<ClickEvent>(ev => MainMenu());
+        buttonMainMenu.RegisterCallback<ClickEvent>(ev => Menu());
+
+        sliderMusic.value = FindObjectOfType<AudioManager>().GetVolume("backgroundMusic");
+        sliderSound.value = FindObjectOfType<AudioManager>().GetVolume("laserShot");
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Pause") && !gameOverActive)
+        if (Input.GetButtonDown("Pause"))
         {
-            TogglePauseElement();
+            Pause();
         }
 
-        if (GameManager.gameOver && !gameOverActive)
+        if (FindObjectOfType<GameManager>().gameOver && !gameOverActive)
         {
             GameOver();
         }
     }
 
-
-    void TogglePauseElement()
+    void Pause()
     {
-        pauseEnabled = !pauseEnabled;
+        if (!gameOverActive)
+        {
+            pauseEnabled = !pauseEnabled;
 
-        Time.timeScale = pauseEnabled ? 0 : 1;
-        elementPlay.style.display = pauseEnabled ? DisplayStyle.None : DisplayStyle.Flex;
-        elementPause.style.display = pauseEnabled ? DisplayStyle.Flex : DisplayStyle.None;
-        elementControls.style.display = DisplayStyle.None;
-        elementGameOver.style.display = DisplayStyle.None;
-        UnityEngine.Cursor.visible = pauseEnabled;
-        UnityEngine.Cursor.lockState = pauseEnabled ? CursorLockMode.None : CursorLockMode.Locked;
+            Time.timeScale = pauseEnabled ? 0 : 1;
+            elementPlay.style.display = pauseEnabled ? DisplayStyle.None : DisplayStyle.Flex;
+            elementPause.style.display = pauseEnabled ? DisplayStyle.Flex : DisplayStyle.None;
+            UnityEngine.Cursor.visible = pauseEnabled;
+            UnityEngine.Cursor.lockState = pauseEnabled ? CursorLockMode.None : CursorLockMode.Locked;
+        }
     }
 
-    void SwitchToControls()
+    void Options()
     {
         elementPause.style.display = DisplayStyle.None;
-        elementControls.style.display = DisplayStyle.Flex;
-
+        elementOptions.style.display = DisplayStyle.Flex;
     }
-    void SwitchToPause()
+
+    void BackOptions()
     {
+        elementOptions.style.display = DisplayStyle.None;
         elementPause.style.display = DisplayStyle.Flex;
+    }
+
+    void Controls()
+    {
+        elementOptions.style.display = DisplayStyle.None;
+        elementControls.style.display = DisplayStyle.Flex;
+    }
+
+    void MusicChange(ChangeEvent<float> ev)
+    {
+        FindObjectOfType<AudioManager>().ChangeVolume("backgroundMusic", ev.newValue / 100);
+    }
+
+    void SoundChange(ChangeEvent<float> ev)
+    {
+        FindObjectOfType<AudioManager>().ChangeVolume("laserShot", ev.newValue / 100);
+    }
+
+    void BackControls()
+    {
         elementControls.style.display = DisplayStyle.None;
+        elementOptions.style.display = DisplayStyle.Flex;
     }
 
     void GameOver()
     {
         gameOverActive = !gameOverActive;
-        GameManager.gameOver = !gameOverActive;
+        FindObjectOfType<GameManager>().gameOver = !gameOverActive;
         Time.timeScale = gameOverActive ? 0 : 1;
         elementPlay.style.display = gameOverActive ? DisplayStyle.None : DisplayStyle.Flex;
         elementGameOver.style.display = gameOverActive ? DisplayStyle.Flex : DisplayStyle.None;
-        elementControls.style.display = DisplayStyle.None;
-        elementPause.style.display = DisplayStyle.None;
         UnityEngine.Cursor.visible = gameOverActive;
         UnityEngine.Cursor.lockState = gameOverActive ? CursorLockMode.None : CursorLockMode.Locked;
     }
@@ -95,23 +138,23 @@ public class UIControllerGame : MonoBehaviour
         LoadScene(1);
     }
 
-    void MainMenu()
+    void Menu()
     {
         LoadScene(0);
     }
 
     void LoadScene(int scene)
     {
-        GameManager.ClearList();
+        FindObjectOfType<GameManager>().ClearList();
         Time.timeScale = 1;
         gameOverActive = false;
-        GameManager.gameOver = false;
+        FindObjectOfType<GameManager>().gameOver = false;
         SceneManager.LoadScene(scene);
     }
 
-    public static void SetScore(float score)
+    public void SetScore(float scoreValue)
     {
-        elementScore.text = score.ToString();
-        elementScoreGameOver.text = score.ToString();
+        score.text = scoreValue.ToString();
+        scoreGameOver.text = scoreValue.ToString();
     }
 }
