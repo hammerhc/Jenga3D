@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="ElementGameOver" style="width: 50%; height: auto; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;">
+        <ui:Label text="Game Over" display-tooltip-when-elided="true" name="LabelGameOver" style="font-size: 50px; -unity-text-align: upper-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; color: rgb(255, 255, 255);" />
+        <ui:VisualElement name="ElementScore" style="flex-direction: row; justify-content: center; width: auto; align-items: center; -unity-text-align: upper-center; font-size: 20px; color: rgb(255, 255, 255); height: 50px;">
+          <ui:Label text="Score: " display-tooltip-when-elided="true" name="LabelScore" style="justify-content: center; -unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 20px; width: auto; height: auto; align-items: center; flex-direction: row;" />
+          <ui:Label text="0" display-tooltip-when-elided="true" name="Score" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 20px; justify-content: center; align-items: center; width: auto; height: auto; flex-direction: row;" />
+        </ui:VisualElement>
+        <ui:Button text="Retry" display-tooltip-when-elided="true" name="ButtonRetry" style="opacity: 1; display: flex; -unity-text-align: middle-center; white-space: nowrap; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; height: 40px; color: rgb(0, 0, 0); background-color: rgb(164, 164, 164); font-size: 20px;" />
+        <ui:Button text="Main Menu&#10;" display-tooltip-when-elided="true" name="ButtonMenu" style="opacity: 1; display: flex; -unity-text-align: middle-center; white-space: nowrap; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; height: 40px; color: rgb(0, 0, 0); background-color: rgb(164, 164, 164); font-size: 20px;" />
+    </ui:VisualElement>
+</ui:UXML>

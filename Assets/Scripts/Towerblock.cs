@@ -6,6 +6,7 @@ namespace Assets.Scripts
     {
         private GameObject block;
         private bool isLocked;
+        private Vector3 spawnPosition;
 
         public GameObject Block 
         { 
@@ -31,10 +32,23 @@ namespace Assets.Scripts
             }
         }
 
-        public Towerblock(GameObject towerBlock, bool locked)
+        public Vector3 SpawnPosition
+        {
+            get
+            {
+                return spawnPosition;
+            }
+            set
+            {
+                spawnPosition = value;
+            }
+        }
+
+        public Towerblock(GameObject towerBlock, bool locked, Vector3 pos)
         {
             Block = towerBlock;
             IsLocked = locked;
+            SpawnPosition = pos;
         }
     }
 }

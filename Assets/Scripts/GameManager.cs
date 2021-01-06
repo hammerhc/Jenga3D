@@ -8,10 +8,12 @@ public class GameManager : MonoBehaviour
     public Transform spawnPoint;
     public Transform removePosition;
     public float blockCount;
-    
+
+    public static bool gameOver = false;
+
     private static List<Towerblock> tower = new List<Towerblock>();
     private float Score = 0f;
-    
+
     void Start()
     {
         buildTower();
@@ -37,6 +39,8 @@ public class GameManager : MonoBehaviour
                 tower.RemoveAt(i);
             }
         }
+
+        checkTower();
     }
 
     void buildTower()
@@ -55,15 +59,24 @@ public class GameManager : MonoBehaviour
             }
             if (i % 2 == 1)
             {
-                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x - block.transform.localScale.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity), isLocked));
-                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity), isLocked));
-                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x + block.transform.localScale.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.identity), isLocked));
+                Vector3 blockLeft = new Vector3(spawnPoint.position.x - block.transform.localScale.x, spawnPoint.position.y + height, spawnPoint.position.z);
+                Vector3 blockMid = new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z);
+                Vector3 blockRight = new Vector3(spawnPoint.position.x + block.transform.localScale.x, spawnPoint.position.y + height, spawnPoint.position.z);
+
+                tower.Add(new Towerblock(Instantiate(block, blockLeft, Quaternion.identity), isLocked, blockLeft));
+                tower.Add(new Towerblock(Instantiate(block, blockMid, Quaternion.identity), isLocked, blockMid));
+                tower.Add(new Towerblock(Instantiate(block, blockRight, Quaternion.identity), isLocked, blockRight));
             }
             else
             {
-                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z - block.transform.localScale.x), Quaternion.Euler(new Vector3(0f, 90f, 0f))), isLocked));
-                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z), Quaternion.Euler(new Vector3(0f, 90f, 0f))), isLocked));
-                tower.Add(new Towerblock(Instantiate(block, new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z + block.transform.localScale.x), Quaternion.Euler(new Vector3(0f, 90f, 0f))), isLocked));
+                Vector3 blockLeft = new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z - block.transform.localScale.x);
+                Vector3 blockMid = new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z);
+                Vector3 blockRight = new Vector3(spawnPoint.position.x, spawnPoint.position.y + height, spawnPoint.position.z + block.transform.localScale.x);
+
+
+                tower.Add(new Towerblock(Instantiate(block, blockLeft, Quaternion.Euler(new Vector3(0f, 90f, 0f))), isLocked, blockLeft));
+                tower.Add(new Towerblock(Instantiate(block, blockMid, Quaternion.Euler(new Vector3(0f, 90f, 0f))), isLocked, blockMid));
+                tower.Add(new Towerblock(Instantiate(block, blockRight, Quaternion.Euler(new Vector3(0f, 90f, 0f))), isLocked, blockRight));
             }
             height += block.transform.localScale.y;
         }
@@ -77,6 +90,26 @@ public class GameManager : MonoBehaviour
         }
 
         tower.Clear();
+    }
+
+    void checkTower()
+    {
+        if (!gameOver)
+        {
+            foreach (Towerblock towerBlock in tower)
+            {
+                if (towerBlock.IsLocked)
+                {
+                    if (towerBlock.Block.transform.position.z >= towerBlock.SpawnPosition.z + 2 ||
+                        towerBlock.Block.transform.position.z <= towerBlock.SpawnPosition.z - 2 ||
+                        towerBlock.Block.transform.position.x >= towerBlock.SpawnPosition.x + 2 ||
+                       towerBlock.Block.transform.position.x <= towerBlock.SpawnPosition.x - 2)
+                    {
+                        gameOver = true;
+                    }
+                }
+            }
+        }
     }
 
     public static bool CheckBlock(GameObject block)
