@@ -10,7 +10,7 @@ public class Shoot : MonoBehaviour
     private float nextTimeToFire = 0f;
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && Time.timeScale == 1)
         {
@@ -34,6 +34,4 @@ public class Shoot : MonoBehaviour
             }
         }
     }
-
-
 }
