@@ -1,54 +1,51 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts
+public class Towerblock
 {
-    public class Towerblock
+    private GameObject block;
+    private bool isLocked;
+    private Vector3 spawnPosition;
+
+    public GameObject Block
     {
-        private GameObject block;
-        private bool isLocked;
-        private Vector3 spawnPosition;
-
-        public GameObject Block 
-        { 
-            get
-            {
-                return block;
-            }
-            set
-            {
-                block = value;
-            }
-        }
-
-        public bool IsLocked
+        get
         {
-            get
-            {
-                return isLocked;
-            }
-            set
-            {
-                isLocked = value;
-            }
+            return block;
         }
-
-        public Vector3 SpawnPosition
+        set
         {
-            get
-            {
-                return spawnPosition;
-            }
-            set
-            {
-                spawnPosition = value;
-            }
+            block = value;
         }
+    }
 
-        public Towerblock(GameObject towerBlock, bool locked, Vector3 pos)
+    public bool IsLocked
+    {
+        get
         {
-            Block = towerBlock;
-            IsLocked = locked;
-            SpawnPosition = pos;
+            return isLocked;
         }
+        set
+        {
+            isLocked = value;
+        }
+    }
+
+    public Vector3 SpawnPosition
+    {
+        get
+        {
+            return spawnPosition;
+        }
+        set
+        {
+            spawnPosition = value;
+        }
+    }
+
+    public Towerblock(GameObject towerBlock, bool locked, Vector3 pos)
+    {
+        Block = towerBlock;
+        IsLocked = locked;
+        SpawnPosition = pos;
     }
 }
