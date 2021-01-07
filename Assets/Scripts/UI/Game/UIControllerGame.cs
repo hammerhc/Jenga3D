@@ -13,6 +13,7 @@ public class UIControllerGame : MonoBehaviour
     Label score;
     Label highScore;
     Label scoreGameOver;
+    Label highScoreGameOver;
 
     bool pauseEnabled = false;
     bool gameOverActive = false;
@@ -44,6 +45,7 @@ public class UIControllerGame : MonoBehaviour
         var buttonRetry = elementGameOver.Q<Button>("ButtonRetry");
         var buttonMainMenu = elementGameOver.Q<Button>("ButtonMainMenu");
         scoreGameOver = elementGameOver.Q<Label>("LabelScore");
+        highScoreGameOver = elementGameOver.Q<Label>("LabelHighScore");
 
         buttonBackPau.RegisterCallback<ClickEvent>(ev => Pause());
         buttonOptions.RegisterCallback<ClickEvent>(ev => Options());
@@ -168,5 +170,6 @@ public class UIControllerGame : MonoBehaviour
     public void SetHighScore(float highScoreValue)
     {
         highScore.text = highScoreValue.ToString();
+        highScoreGameOver.text = highScoreValue.ToString();
     }
 }

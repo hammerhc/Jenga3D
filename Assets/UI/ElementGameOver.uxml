@@ -1,6 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="ElementGameOver" style="width: 75%; height: 100%; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; align-items: center; justify-content: center;">
         <ui:Label text="Game Over" display-tooltip-when-elided="true" name="LabelGameOver" style="font-size: 70px; -unity-text-align: upper-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; color: rgb(255, 255, 255);" />
+        <ui:VisualElement name="ElementHighScore" style="align-items: center; justify-content: center; width: 100%; height: 50px; flex-direction: row;">
+            <ui:Label text="Higscore:&#10;" display-tooltip-when-elided="true" name="LabelHighScoreText" style="font-size: 30px; -unity-text-align: upper-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; color: rgb(255, 255, 255); margin-right: 5px;" />
+            <ui:Label text="0" display-tooltip-when-elided="true" name="LabelHighScore" style="font-size: 30px; -unity-text-align: upper-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; color: rgb(255, 255, 255); margin-left: 5px;" />
+        </ui:VisualElement>
         <ui:VisualElement name="ElementScore" style="align-items: center; justify-content: center; width: 100%; height: 50px; flex-direction: row;">
             <ui:Label text="Score:&#10;" display-tooltip-when-elided="true" name="LabelScoreText" style="font-size: 30px; -unity-text-align: upper-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; color: rgb(255, 255, 255); margin-right: 5px;" />
             <ui:Label text="0" display-tooltip-when-elided="true" name="LabelScore" style="font-size: 30px; -unity-text-align: upper-center; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; color: rgb(255, 255, 255); margin-left: 5px;" />
