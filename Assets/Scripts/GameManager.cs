@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public bool gameOver;
 
     private List<Towerblock> tower = new List<Towerblock>();
-    private float Score = 0f;
+    private float score = 0f;
+    private float highScore = 0f;
 
     void Start()
     {
@@ -22,8 +23,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             DestroyTower();
-            Score = 0;
-            FindObjectOfType<UIControllerGame>().SetScore(Score);
+            score = 0;
+            FindObjectOfType<UIControllerGame>().SetScore(score);
             BuildTower();
         }
 
@@ -31,8 +32,8 @@ public class GameManager : MonoBehaviour
         {
             if (tower[i].block.transform.position.y < removePosition.position.y)
             {
-                Score += 10;
-                FindObjectOfType<UIControllerGame>().SetScore(Score);
+                score += 10;
+                FindObjectOfType<UIControllerGame>().SetScore(score);
                 Destroy(tower[i].block);
                 tower.RemoveAt(i);
             }
@@ -110,6 +111,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void OnApplicationQuit()
+    {
+        Save();
+    }
+
     public bool CheckBlock(GameObject block)
     {
         foreach (Towerblock towerBlock in tower)
@@ -125,5 +131,48 @@ public class GameManager : MonoBehaviour
     public void ClearList()
     {
         tower.Clear();
+    }
+
+    public void SetHighScore(float highScoreValue)
+    {
+        if (highScoreValue > highScore)
+        {
+            highScore = highScoreValue;
+        }
+    }
+
+    public void SetHighScore()
+    {
+        if (score > highScore)
+        {
+            highScore = score;
+        }
+    }
+
+    public float GetHighScore()
+    {
+        return highScore;
+    }
+
+    public float GetScore()
+    {
+        return score;
+    }
+
+    public void Save()
+    {
+        SaveSystem.SaveData(this, FindObjectOfType<AudioManager>());
+    }
+
+    public void Load()
+    {
+        GameData data = SaveSystem.LoadData();
+
+        if (data != null)
+        {
+            SetHighScore(data.highScore);
+            FindObjectOfType<AudioManager>().ChangeVolume("laserShot", data.soundVolume / 100);
+            FindObjectOfType<AudioManager>().ChangeVolume("backgroundMusic", data.musicVolume / 100);
+        }
     }
 }

@@ -10,6 +10,8 @@ public class UIControllerMainMenu : MonoBehaviour
 
     void Start()
     {
+        FindObjectOfType<GameManager>().Load();
+
         var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
 
         elementMenu = rootVisualElement.Q("ElementMenu");
@@ -44,7 +46,8 @@ public class UIControllerMainMenu : MonoBehaviour
 
     void StartGame()
     {
-        FindObjectOfType<GameManager>().ClearList();
+        FindObjectOfType<GameManager>().DestroyTower();
+        FindObjectOfType<GameManager>().Save();
         SceneManager.LoadScene(1);
     }
 

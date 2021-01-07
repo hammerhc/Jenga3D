@@ -11,6 +11,7 @@ public class UIControllerGame : MonoBehaviour
     VisualElement elementGameOver;
     
     Label score;
+    Label highScore;
     Label scoreGameOver;
 
     bool pauseEnabled = false;
@@ -27,6 +28,7 @@ public class UIControllerGame : MonoBehaviour
         elementGameOver = rootVisualElement.Q("ElementGameOver");
 
         score = elementPlay.Q<Label>("LabelScore");
+        highScore = elementPlay.Q<Label>("LabelHighScore");
 
         var buttonBackPau = elementPause.Q<Button>("ButtonBack");
         var buttonOptions = elementPause.Q<Button>("ButtonOptions");
@@ -56,6 +58,9 @@ public class UIControllerGame : MonoBehaviour
 
         buttonRetry.RegisterCallback<ClickEvent>(ev => Retry());
         buttonMainMenu.RegisterCallback<ClickEvent>(ev => Menu());
+
+        FindObjectOfType<GameManager>().Load();
+        SetHighScore(FindObjectOfType<GameManager>().GetHighScore());
 
         sliderMusic.value = FindObjectOfType<AudioManager>().GetVolume("backgroundMusic");
         sliderSound.value = FindObjectOfType<AudioManager>().GetVolume("laserShot");
@@ -125,6 +130,8 @@ public class UIControllerGame : MonoBehaviour
     void GameOver()
     {
         gameOverActive = !gameOverActive;
+        FindObjectOfType<GameManager>().SetHighScore();
+        FindObjectOfType<GameManager>().Save();
         FindObjectOfType<GameManager>().gameOver = !gameOverActive;
         Time.timeScale = gameOverActive ? 0 : 1;
         elementPlay.style.display = gameOverActive ? DisplayStyle.None : DisplayStyle.Flex;
@@ -156,5 +163,10 @@ public class UIControllerGame : MonoBehaviour
     {
         score.text = scoreValue.ToString();
         scoreGameOver.text = scoreValue.ToString();
+    }
+
+    public void SetHighScore(float highScoreValue)
+    {
+        highScore.text = highScoreValue.ToString();
     }
 }
